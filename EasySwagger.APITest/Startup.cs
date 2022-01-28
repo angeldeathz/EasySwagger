@@ -45,11 +45,12 @@ namespace EasySwagger.APITest
                         Url = new Uri("https://example.com/license"),
                     }
                 };
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                x.XmlCommentsPath = xmlPath;
             });
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            var xmlCommentsPath = xmlPath;
+            services.AddSwaggerXmlComments(xmlCommentsPath);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
