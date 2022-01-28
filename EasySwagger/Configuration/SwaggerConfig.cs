@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using EasySwagger.Models;
 
 namespace EasySwagger.Configuration
 {

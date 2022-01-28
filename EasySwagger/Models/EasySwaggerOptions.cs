@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace EasySwagger.Configuration
+namespace EasySwagger.Models
 {
     public class EasySwaggerOptions
     {
@@ -14,6 +14,5 @@ namespace EasySwagger.Configuration
         }
 
         public OpenApiInfo OpenApiInfo { get; set; }
-        public string XmlCommentsPath { get; set; }
     }
 }

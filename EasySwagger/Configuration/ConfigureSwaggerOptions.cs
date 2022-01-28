@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
+using EasySwagger.Models;
 
 namespace EasySwagger.Configuration
 {
@@ -25,7 +26,6 @@ namespace EasySwagger.Configuration
             options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 
             AddSwaggerDoc(options);
-            IncludeXmlComments(options, Options);
         }
 
         private void AddSwaggerDoc(SwaggerGenOptions options)
@@ -54,14 +54,6 @@ namespace EasySwagger.Configuration
             }
 
             return openApiInfo;
-        }
-
-        private static void IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, EasySwaggerOptions options)
-        {
-            if (string.IsNullOrEmpty(options.XmlCommentsPath) ||
-                string.IsNullOrWhiteSpace(options.XmlCommentsPath)) return;
-
-            swaggerGenOptions.IncludeXmlComments(options.XmlCommentsPath);
         }
     }
 }
