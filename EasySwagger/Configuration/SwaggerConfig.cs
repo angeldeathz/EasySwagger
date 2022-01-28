@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Linq;
+using EasySwagger.DocumentFilters;
+using EasySwagger.OperationFilters;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,7 +16,12 @@ namespace EasySwagger.Configuration
             services.AddApiVersioning();
             services.AddVersionedApiExplorer(opt => opt.GroupNameFormat = "'V'V");
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x =>
+            {
+                x.ResolveConflictingActions(descriptions => descriptions.First());
+                x.OperationFilter<RemoveVersionFromParameter>();
+                x.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+            });
             return services;
         }
 
