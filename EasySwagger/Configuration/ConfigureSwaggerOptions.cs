@@ -24,6 +24,12 @@ namespace EasySwagger.Configuration
             options.OperationFilter<RemoveVersionFromParameter>();
             options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 
+            AddSwaggerDoc(options);
+            IncludeXmlComments(options, Options);
+        }
+
+        private void AddSwaggerDoc(SwaggerGenOptions options)
+        {
             foreach (var description in _apiVersionDescription.ApiVersionDescriptions)
             {
                 options.SwaggerDoc(description.GroupName, GenerateOpenApiInfo(description));
@@ -48,6 +54,14 @@ namespace EasySwagger.Configuration
             }
 
             return openApiInfo;
+        }
+
+        private static void IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, EasySwaggerOptions options)
+        {
+            if (string.IsNullOrEmpty(options.XmlCommentsPath) ||
+                string.IsNullOrWhiteSpace(options.XmlCommentsPath)) return;
+
+            swaggerGenOptions.IncludeXmlComments(options.XmlCommentsPath);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace EasySwagger.Configuration
             services.AddApiVersioning();
             services.AddVersionedApiExplorer(opt => opt.GroupNameFormat = "'V'V");
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddSwaggerGen(x => { IncludeXmlComments(x, optionsSwagger); });
+            services.AddSwaggerGen();
             return services;
         }
 
@@ -46,14 +46,6 @@ namespace EasySwagger.Configuration
             var defaultOptions = new EasySwaggerOptions();
             options?.Invoke(defaultOptions);
             return defaultOptions;
-        }
-
-        private static void IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, EasySwaggerOptions options)
-        {
-            if (string.IsNullOrEmpty(options.XmlCommentsPath) ||
-                string.IsNullOrWhiteSpace(options.XmlCommentsPath)) return;
-
-            swaggerGenOptions.IncludeXmlComments(options.XmlCommentsPath);
         }
     }
 }
