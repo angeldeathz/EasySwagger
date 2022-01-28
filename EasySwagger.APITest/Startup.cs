@@ -31,7 +31,6 @@ namespace EasySwagger.APITest
                 x.OpenApiInfo = new OpenApiInfo
                 {
                     Title = "Employee API",
-                    Version = "v1",
                     Description = "An API to perform Employee operations",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact

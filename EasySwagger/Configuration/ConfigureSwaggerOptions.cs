@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using EasySwagger.CustomSwaggerFilters;
+﻿using EasySwagger.CustomSwaggerFilters;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Linq;
 
 namespace EasySwagger.Configuration
 {
@@ -32,21 +32,22 @@ namespace EasySwagger.Configuration
 
         private OpenApiInfo GenerateOpenApiInfo(ApiVersionDescription description)
         {
-            //var info = Options.OpenApiInfo;
-            //info.Version = description.ApiVersion.ToString();
-
-            var info = new OpenApiInfo
+            var openApiInfo = new OpenApiInfo
             {
-                Title = "asdasd",
+                Description = Options.OpenApiInfo.Description,
+                Contact = Options.OpenApiInfo.Contact,
+                License = Options.OpenApiInfo.License,
+                TermsOfService = Options.OpenApiInfo.TermsOfService,
+                Title = Options.OpenApiInfo.Title,
                 Version = description.ApiVersion.ToString()
             };
 
             if (description.IsDeprecated)
             {
-                info.Description += "This API version is deprecated";
+                openApiInfo.Description += " - This API version is deprecated";
             }
 
-            return info;
+            return openApiInfo;
         }
     }
 }

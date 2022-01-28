@@ -9,7 +9,8 @@ namespace EasySwagger.Configuration
 {
     public static class SwaggerConfig
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services,
+        public static IServiceCollection AddSwagger(
+            this IServiceCollection services,
             Action<EasySwaggerOptions> customOptions = null)
         {
             // get customOptions swagger
