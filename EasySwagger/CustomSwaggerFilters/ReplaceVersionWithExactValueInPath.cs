@@ -1,8 +1,8 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 
-namespace EasySwagger.DocumentFilters
+namespace EasySwagger.CustomSwaggerFilters
 {
     public class ReplaceVersionWithExactValueInPath : IDocumentFilter
     {

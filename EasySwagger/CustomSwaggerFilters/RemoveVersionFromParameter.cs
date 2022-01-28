@@ -1,8 +1,8 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System.Linq;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Linq;
 
-namespace EasySwagger.OperationFilters
+namespace EasySwagger.CustomSwaggerFilters
 {
     public class RemoveVersionFromParameter : IOperationFilter
     {

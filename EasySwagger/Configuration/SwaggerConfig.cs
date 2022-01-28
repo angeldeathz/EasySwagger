@@ -1,22 +1,22 @@
-﻿using System;
-using System.Linq;
-using EasySwagger.DocumentFilters;
-using EasySwagger.OperationFilters;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
+using System.Linq;
+using EasySwagger.CustomSwaggerFilters;
 
 namespace EasySwagger.Configuration
 {
     public static class SwaggerConfig
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services,
-            Action<EasySwaggerOptions> options = null)
+            Action<EasySwaggerOptions> customOptions = null)
         {
-            // set easy swagger options
-            SetOptions(options);
+            // get customOptions swagger
+            var optionsSwagger = GetOptions(customOptions);
+            ConfigureSwaggerOptions.Options = optionsSwagger;
 
             services.AddApiVersioning();
             services.AddVersionedApiExplorer(opt => opt.GroupNameFormat = "'V'V");
@@ -26,6 +26,7 @@ namespace EasySwagger.Configuration
                 x.ResolveConflictingActions(descriptions => descriptions.First());
                 x.OperationFilter<RemoveVersionFromParameter>();
                 x.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+                IncludeXmlComments(x, optionsSwagger);
             });
             return services;
         }
@@ -47,11 +48,19 @@ namespace EasySwagger.Configuration
             return app;
         }
 
-        private static void SetOptions(Action<EasySwaggerOptions> options)
+        private static EasySwaggerOptions GetOptions(Action<EasySwaggerOptions> options)
         {
             var defaultOptions = new EasySwaggerOptions();
             options?.Invoke(defaultOptions);
-            ConfigureSwaggerOptions.Options = defaultOptions;
+            return defaultOptions;
+        }
+
+        private static void IncludeXmlComments(SwaggerGenOptions swaggerGenOptions, EasySwaggerOptions options)
+        {
+            if (string.IsNullOrEmpty(options.XmlCommentsPath) ||
+                string.IsNullOrWhiteSpace(options.XmlCommentsPath)) return;
+
+            swaggerGenOptions.IncludeXmlComments(options.XmlCommentsPath);
         }
     }
 }

@@ -37,8 +37,8 @@ namespace EasySwagger.APITest.Controllers.V1
                 .ToArray();
         }
 
-        [MapToApiVersion("2")]
         [HttpGet]
+        [MapToApiVersion("2")]
         public ActionResult GetV2()
         {
             return Ok("wena");

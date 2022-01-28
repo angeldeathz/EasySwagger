@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using EasySwagger.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace EasySwagger.APITest
 {
@@ -22,7 +26,31 @@ namespace EasySwagger.APITest
         {
             services.AddControllers();
 
-            services.AddSwagger();
+            services.AddSwagger(x =>
+            {
+                x.OpenApiInfo = new OpenApiInfo
+                {
+                    Title = "Employee API",
+                    Version = "v1",
+                    Description = "An API to perform Employee operations",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "John Walkner",
+                        Email = "John.Walkner@gmail.com",
+                        Url = new Uri("https://twitter.com/jwalkner"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Employee API LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                };
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //x.XmlCommentsPath = xmlPath;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

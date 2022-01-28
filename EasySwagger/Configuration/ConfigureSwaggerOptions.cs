@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using System.Linq;
+using EasySwagger.CustomSwaggerFilters;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -20,17 +22,18 @@ namespace EasySwagger.Configuration
         {
             foreach (var description in _apiVersionDescription.ApiVersionDescriptions)
             {
-                options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+                options.SwaggerDoc(description.GroupName, GenerateOpenApiInfo(description));
             }
+
+            //options.ResolveConflictingActions(descriptions => descriptions.First());
+            //options.OperationFilter<RemoveVersionFromParameter>();
+            //options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
         }
 
-        private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        private OpenApiInfo GenerateOpenApiInfo(ApiVersionDescription description)
         {
-            var info = new OpenApiInfo
-            {
-                Title = Options.ProjectName,
-                Version = description.ApiVersion.ToString()
-            };
+            var info = Options.OpenApiInfo;
+            info.Version = description.ApiVersion.ToString();
 
             if (description.IsDeprecated)
             {

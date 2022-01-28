@@ -1,7 +1,19 @@
-﻿namespace EasySwagger.Configuration
+﻿using Microsoft.OpenApi.Models;
+
+namespace EasySwagger.Configuration
 {
     public class EasySwaggerOptions
     {
-        public string ProjectName { get; set; } = "My Project";
+        public EasySwaggerOptions()
+        {
+            OpenApiInfo = new OpenApiInfo
+            {
+                Title = "My Project",
+                Description = "This is my project description"
+            };
+        }
+
+        public OpenApiInfo OpenApiInfo { get; set; }
+        public string XmlCommentsPath { get; set; }
     }
 }
