@@ -25,7 +25,7 @@ namespace EasySwagger.Configuration
             return services;
         }
 
-        public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app,
+        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app,
             IApiVersionDescriptionProvider provider)
         {
             app.UseSwagger(opt => opt.RouteTemplate = "{documentName}/swagger.json");

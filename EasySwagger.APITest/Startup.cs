@@ -31,7 +31,7 @@ namespace EasySwagger.APITest
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.ConfigureSwagger(provider);
+                app.UseSwagger(provider);
             }
 
             app.UseHttpsRedirection();
