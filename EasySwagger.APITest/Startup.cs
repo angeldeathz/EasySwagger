@@ -51,6 +51,7 @@ namespace EasySwagger.APITest
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             var xmlCommentsPath = xmlPath;
             services.AddSwaggerXmlComments(xmlCommentsPath);
+            services.AddSwaggerSecurity();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
