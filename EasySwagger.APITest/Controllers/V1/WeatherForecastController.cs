@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace EasySwagger.APITest.Controllers.V1
 {
     [ApiVersion("1")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
     [ApiController]
     public class WeatherForecastController : ControllerBase
     {

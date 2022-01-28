@@ -20,13 +20,13 @@ namespace EasySwagger.Configuration
         public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app,
             IApiVersionDescriptionProvider provider)
         {
-            app.UseSwagger(opt => opt.RouteTemplate = "api/{documentName}/swagger.json");
+            app.UseSwagger(opt => opt.RouteTemplate = "{documentName}/swagger.json");
 
             app.UseSwaggerUI(opt =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    opt.SwaggerEndpoint($"/api/{description.GroupName}/swagger.json",
+                    opt.SwaggerEndpoint($"/{description.GroupName}/swagger.json",
                         description.GroupName.ToUpperInvariant());
                 }
             });
