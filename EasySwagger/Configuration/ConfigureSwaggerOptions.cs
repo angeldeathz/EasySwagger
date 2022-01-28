@@ -9,6 +9,7 @@ namespace EasySwagger.Configuration
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _apiVersionDescription;
+        public static EasySwaggerOptions Options = new();
 
         public ConfigureSwaggerOptions(IApiVersionDescriptionProvider apiVersionDescription)
         {
@@ -27,7 +28,7 @@ namespace EasySwagger.Configuration
         {
             var info = new OpenApiInfo
             {
-                Title = "Movies API",
+                Title = Options.ProjectName,
                 Version = description.ApiVersion.ToString()
             };
 

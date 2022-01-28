@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace EasySwagger.APITest.Controllers.V1
 {
     [ApiVersion("1")]
+    [ApiVersion("2")]
     [Route("v{version:apiVersion}/[controller]")]
     [ApiController]
     public class WeatherForecastController : ControllerBase
@@ -34,6 +35,13 @@ namespace EasySwagger.APITest.Controllers.V1
                     Summary = Summaries[rng.Next(Summaries.Length)]
                 })
                 .ToArray();
+        }
+
+        [MapToApiVersion("2")]
+        [HttpGet]
+        public ActionResult GetV2()
+        {
+            return Ok("wena");
         }
     }
 }

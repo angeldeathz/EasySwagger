@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EasySwagger.DocumentFilters;
 using EasySwagger.OperationFilters;
 using Microsoft.AspNetCore.Builder;
@@ -11,8 +12,12 @@ namespace EasySwagger.Configuration
 {
     public static class SwaggerConfig
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IServiceCollection AddSwagger(this IServiceCollection services,
+            Action<EasySwaggerOptions> options = null)
         {
+            // set easy swagger options
+            SetOptions(options);
+
             services.AddApiVersioning();
             services.AddVersionedApiExplorer(opt => opt.GroupNameFormat = "'V'V");
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -40,6 +45,13 @@ namespace EasySwagger.Configuration
             });
 
             return app;
+        }
+
+        private static void SetOptions(Action<EasySwaggerOptions> options)
+        {
+            var defaultOptions = new EasySwaggerOptions();
+            options?.Invoke(defaultOptions);
+            ConfigureSwaggerOptions.Options = defaultOptions;
         }
     }
 }
