@@ -4,5 +4,17 @@
         <name>EasySwagger.APITest</name>
     </assembly>
     <members>
+        <member name="M:EasySwagger.APITest.Controllers.V1.WeatherForecastController.Get">
+            <summary>
+            Version 1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasySwagger.APITest.Controllers.V1.WeatherForecastController.GetV2">
+            <summary>
+            Version 2
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

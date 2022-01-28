@@ -49,7 +49,7 @@ namespace EasySwagger.APITest
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //x.XmlCommentsPath = xmlPath;
+                x.XmlCommentsPath = xmlPath;
             });
         }
 

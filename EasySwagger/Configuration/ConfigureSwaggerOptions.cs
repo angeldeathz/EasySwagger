@@ -32,8 +32,14 @@ namespace EasySwagger.Configuration
 
         private OpenApiInfo GenerateOpenApiInfo(ApiVersionDescription description)
         {
-            var info = Options.OpenApiInfo;
-            info.Version = description.ApiVersion.ToString();
+            //var info = Options.OpenApiInfo;
+            //info.Version = description.ApiVersion.ToString();
+
+            var info = new OpenApiInfo
+            {
+                Title = "asdasd",
+                Version = description.ApiVersion.ToString()
+            };
 
             if (description.IsDeprecated)
             {

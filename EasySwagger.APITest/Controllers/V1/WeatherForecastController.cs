@@ -24,7 +24,12 @@ namespace EasySwagger.APITest.Controllers.V1
             _logger = logger;
         }
 
+        /// <summary>
+        /// Version 1
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [MapToApiVersion("1")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -37,6 +42,10 @@ namespace EasySwagger.APITest.Controllers.V1
                 .ToArray();
         }
 
+        /// <summary>
+        /// Version 2
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [MapToApiVersion("2")]
         public ActionResult GetV2()
