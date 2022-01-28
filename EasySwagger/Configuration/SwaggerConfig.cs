@@ -4,8 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
-using System.Linq;
-using EasySwagger.CustomSwaggerFilters;
 
 namespace EasySwagger.Configuration
 {
@@ -21,13 +19,7 @@ namespace EasySwagger.Configuration
             services.AddApiVersioning();
             services.AddVersionedApiExplorer(opt => opt.GroupNameFormat = "'V'V");
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddSwaggerGen(x =>
-            {
-                x.ResolveConflictingActions(descriptions => descriptions.First());
-                x.OperationFilter<RemoveVersionFromParameter>();
-                x.DocumentFilter<ReplaceVersionWithExactValueInPath>();
-                IncludeXmlComments(x, optionsSwagger);
-            });
+            services.AddSwaggerGen(x => { IncludeXmlComments(x, optionsSwagger); });
             return services;
         }
 

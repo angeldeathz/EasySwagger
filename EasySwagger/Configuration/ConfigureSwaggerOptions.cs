@@ -20,14 +20,14 @@ namespace EasySwagger.Configuration
 
         public void Configure(SwaggerGenOptions options)
         {
+            options.ResolveConflictingActions(descriptions => descriptions.First());
+            options.OperationFilter<RemoveVersionFromParameter>();
+            options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+
             foreach (var description in _apiVersionDescription.ApiVersionDescriptions)
             {
                 options.SwaggerDoc(description.GroupName, GenerateOpenApiInfo(description));
             }
-
-            //options.ResolveConflictingActions(descriptions => descriptions.First());
-            //options.OperationFilter<RemoveVersionFromParameter>();
-            //options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
         }
 
         private OpenApiInfo GenerateOpenApiInfo(ApiVersionDescription description)
